@@ -33,16 +33,30 @@ export default class App extends React.Component {
 
   findRoutes() {
     var today = new Date();
-    var month = (today.getMonth < 10 ? "" : "0") + today.getMonth();   
+    var timestamp = today.getFullYear() + "-" + (today.getMonth < 10 ? "0" : "") + parseInt(today.getMonth()+1) + "-"
+      + today.getDate() + "T" + today.getHours() + ":" + today.getMinutes() + ":"
+      + (today.getSeconds() < 10 ? "0" : "") + today.getSeconds();
     uri = "https://route.api.here.com/routing/7.2/calculateroute.json"
     + "?app_id=" + this.state.appId
     + "&app_code=" + this.state.appCode
     + "&mode=fastest;car;"
-    + "&waypoint0=geo!" + this.state.position.longitude + "," + this.state.position.latitude
-    + "&waypoint1=geo!" + "lol" + "," + "lol"
-    + "&arrival=" + today.getFullYear() + "-" + month + "-" + today.getDate()
-    + "T" + today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+    + "&waypoint0=geo!" + this.state.position.latitude + "," + this.state.position.longitude
+    + "&waypoint1=geo!" + "32.720485" + "," + "-117.254846"
+    + "&departure=" + timestamp;
     console.log(uri);
+
+    return fetch(uri)
+      .then ((response) => response.json())
+      .then ((responseJson) => {
+        this.setState ({
+          timeLeft: responseJson.response.route[0].summary.trafficTime
+        }, function() {
+          console.log(responseJson.response.route[0].summary.trafficTime);
+        });
+      })
+      .catch ((error) => {
+        console.error(error);
+      })
   }
 
   render() {
