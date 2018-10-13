@@ -27,6 +27,7 @@ export default class App extends React.Component {
         },
         isLoading: false
       });
+      console.log(this);
     }, (error) => {
       alert(JSON.stringify(error))
     });    
