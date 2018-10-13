@@ -16,7 +16,6 @@ export default class App extends React.Component {
       appId: "ASP74kP1aWXMTUXMl9Z7",
       appCode: "TTqYfk0ASNuvbY7R5GtUcg"
     };
-    console.log("Constructor!");
   }
 
   componentWillMount() {
@@ -46,9 +45,7 @@ export default class App extends React.Component {
   }
 
   findRoutes() {
-    console.log(App.state.position);
     var today = new Date();
-    console.log(this.dest_latitude);
     var timestamp =
       today.getFullYear() + "-"
       + (today.getMonth() < 9 ? "0" : "") + parseInt(today.getMonth()+1) + "-"
@@ -68,11 +65,9 @@ export default class App extends React.Component {
     return fetch(uri)
       .then ((response) => response.json())
       .then ((responseJson) => {
-        console.log(responseJson);
         this.setState ({
           timeLeft: responseJson.response.route[0].summary.trafficTime
         }, function() {
-          console.log(responseJson.response.route[0].summary.trafficTime);
         });
       })
       .catch ((error) => {
@@ -88,9 +83,6 @@ export default class App extends React.Component {
         </View>
       )
     }
-
-    const press = () => false;
-    console.log(this.state.position);
 
     return (
       <View style={styles.container}>
@@ -109,7 +101,7 @@ export default class App extends React.Component {
           value={this.state.dest_longitude}
         />
         <Button
-          onPress={this.findRoutes}
+          onPress={this.findRoutes.bind(this)}
           title="GO!"
         />
       </View>
