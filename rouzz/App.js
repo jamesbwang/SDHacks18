@@ -1,5 +1,6 @@
 import React from 'react';
-import { StyleSheet, Button, Text, View } from 'react-native';
+import { StyleSheet, Text, View, Button} from 'react-native';
+import Moment from 'react-moment';
 import { Ionicons } from '@expo/vector-icons';
 import { createStackNavigator, createBottomTabNavigator } from 'react-navigation';
 
@@ -8,7 +9,6 @@ export class HomeScreen extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text>Homepage Screen!</Text>
         <Button
           title="Go to Countdown"
           onPress={() => this.props.navigation.navigate('Countdown')}
@@ -24,9 +24,17 @@ export class HomeScreen extends React.Component {
 
 export class CountdownScreen extends React.Component {
   render() {
+    var date = new Date(Date.now());
+    var timeToGetReady = 10;
+    var dateString = (date.getHours() + ":" + (date.getMinutes() >= 10 ? date.getMinutes().toString() : ('0' + date.getMinutes()).toString()));
+    var arrivalTime = new Date(2314897238947);
     return (
       <View style={styles.container}>
-        <Text>Countdown Screen!</Text>
+        <Text style={styles.timeHeader}> 
+         {dateString}
+        </Text>
+        <Text>{"You will have " + timeToGetReady + "minutes to get ready."}</Text>
+        <Text>{"You will arrive by " + (arrivalTime.getHours() + ":" + (arrivalTime.getMinutes() >= 10 ? arrivalTime.getMinutes().toString() : ('0' + arrivalTime.getMinutes()).toString()))}</Text>
         <Button
           title="Go to Home"
           onPress={() => this.props.navigation.navigate('Home')}
@@ -44,7 +52,6 @@ export class AlarmScreen extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text>Alarm Screen!</Text>
         <Button
           title="Go to Home"
           onPress={() => this.props.navigation.navigate('Home')}
@@ -61,10 +68,15 @@ export class AlarmScreen extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    flexDirection: 'column',
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
   },
+  timeHeader: {
+    fontSize : 20
+
+  }
 });
 
 const RootStack = createStackNavigator(
