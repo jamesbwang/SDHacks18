@@ -1,9 +1,11 @@
 import React from 'react';
 import {
+  ActivityIndicator,
+  Button,
   StyleSheet,
   Text,
-  View,
-  ActivityIndicator,
+  TextInput,
+  View
 } from 'react-native';
 
 export default class App extends React.Component {
@@ -25,7 +27,6 @@ export default class App extends React.Component {
         },
         isLoading: false
       });
-      this.findRoutes();
     }, (error) => {
       alert(JSON.stringify(error))
     });    
@@ -33,17 +34,21 @@ export default class App extends React.Component {
 
   findRoutes() {
     var today = new Date();
-    var timestamp = today.getFullYear() + "-" + (today.getMonth < 10 ? "0" : "") + parseInt(today.getMonth()+1) + "-"
-      + today.getDate() + "T" + today.getHours() + ":" + today.getMinutes() + ":"
+    var timestamp =
+      today.getFullYear() + "-"
+      + (today.getMonth() < 9 ? "0" : "") + parseInt(today.getMonth()+1) + "-"
+      + (today.getDate() < 10 ? "0" : "") + today.getDate() + "T"
+      + (today.getHours() < 10 ? "0" : "") + today.getHours() + ":"
+      + (today.getMinutes() < 10 ? "0" : "") + today.getMinutes() + ":"
       + (today.getSeconds() < 10 ? "0" : "") + today.getSeconds();
     uri = "https://route.api.here.com/routing/7.2/calculateroute.json"
-    + "?app_id=" + this.state.appId
-    + "&app_code=" + this.state.appCode
-    + "&mode=fastest;car;"
-    + "&waypoint0=geo!" + this.state.position.latitude + "," + this.state.position.longitude
-    + "&waypoint1=geo!" + "32.720485" + "," + "-117.254846"
-    + "&departure=" + timestamp;
-    console.log(uri);
+      + "?app_id=" + this.appId
+      + "&app_code=" + this.appCode
+      + "&mode=fastest;car;"
+      + "&waypoint0=geo!" + this.position.latitude + "," + this.position.longitude
+      + "&waypoint1=geo!" + this.dest_latitude + "," + this.dest_longitude
+      + "&departure=" + timestamp;
+    console.log("Now Requesting: " + uri);
 
     return fetch(uri)
       .then ((response) => response.json())
@@ -71,7 +76,23 @@ export default class App extends React.Component {
     return (
       <View style={styles.container}>
         <Text>Alarm clock with HERE API!</Text>
-        <Text>{JSON.stringify(this.state.position)}</Text>
+        <Text>Current Location: {JSON.stringify(this.state.position.latitude)}, {JSON.stringify(this.state.position.longitude)}</Text>
+        <Text>Destination Latitude:</Text>
+        <TextInput
+          style={{width: 180, height: 20, borderColor: 'gray', borderWidth: 1}}
+          onChangeText={(dest_latitude) => this.setState({dest_latitude})}
+          value={this.state.dest_latitude}
+        />
+        <Text>Destination Longitude:</Text>
+        <TextInput
+          style={{width: 180, height: 20, borderColor: 'gray', borderWidth: 1}}
+          onChangeText={(dest_longitude) => this.setState({dest_longitude})}
+          value={this.state.dest_longitude}
+        />
+        <Button
+          onPress={this.findRoutes}
+          title="GO!"
+        />
       </View>
     );
   }
