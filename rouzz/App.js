@@ -3,12 +3,23 @@ import { StyleSheet, Text, View, Button} from 'react-native';
 import Moment from 'react-moment';
 import { Ionicons } from '@expo/vector-icons';
 import { createStackNavigator, createBottomTabNavigator } from 'react-navigation';
+import MapView from 'react-native-maps';
 
 
 export class HomeScreen extends React.Component {
   render() {
     return (
       <View style={styles.container}>
+        <MapView
+          style={styles.map}
+          region={{
+            latitude: 37.78825,
+            longitude: -122.4324,
+            latitudeDelta: 0.015,
+            longitudeDelta: 0.0121,
+          }}
+        >
+        </MapView>
         <Button
           title="Go to Countdown"
           onPress={() => this.props.navigation.navigate('Countdown')}
@@ -75,7 +86,12 @@ const styles = StyleSheet.create({
   },
   timeHeader: {
     fontSize : 20
-
+  },
+  map: {
+    height: 400,
+    width: 400,
+    justifyContent: 'flex-end',
+    alignItems: 'center',
   }
 });
 
