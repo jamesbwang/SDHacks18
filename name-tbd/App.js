@@ -15,11 +15,14 @@ export default class App extends React.Component {
       isLoading: true,
       appId: "ASP74kP1aWXMTUXMl9Z7",
       appCode: "TTqYfk0ASNuvbY7R5GtUcg"
-    }
+    };
+    console.log("Constructor!");
   }
 
   componentWillMount() {
+    /*console.log("Started!");
     return navigator.geolocation.getCurrentPosition((position) => {
+      console.log("Navigating!");
       this.setState({
         position: {
           longitude: position.coords.longitude,
@@ -30,11 +33,22 @@ export default class App extends React.Component {
       console.log(this);
     }, (error) => {
       alert(JSON.stringify(error))
+    }, {
+      enableHighAccuracy: false
+    });*/
+    this.setState({
+      position: {
+        longitude: 32.885483,
+        latitude: -117.239150
+      },
+      isLoading: false
     });    
   }
 
   findRoutes() {
+    console.log(App.state.position);
     var today = new Date();
+    console.log(this.dest_latitude);
     var timestamp =
       today.getFullYear() + "-"
       + (today.getMonth() < 9 ? "0" : "") + parseInt(today.getMonth()+1) + "-"
@@ -43,10 +57,10 @@ export default class App extends React.Component {
       + (today.getMinutes() < 10 ? "0" : "") + today.getMinutes() + ":"
       + (today.getSeconds() < 10 ? "0" : "") + today.getSeconds();
     uri = "https://route.api.here.com/routing/7.2/calculateroute.json"
-      + "?app_id=" + this.appId
+      + "?app_id=" + this.state.appId
       + "&app_code=" + this.appCode
       + "&mode=fastest;car;"
-      + "&waypoint0=geo!" + this.position.latitude + "," + this.position.longitude
+      + "&waypoint0=geo!" + 0 + "," + 0
       + "&waypoint1=geo!" + this.dest_latitude + "," + this.dest_longitude
       + "&departure=" + timestamp;
     console.log("Now Requesting: " + uri);
@@ -54,6 +68,7 @@ export default class App extends React.Component {
     return fetch(uri)
       .then ((response) => response.json())
       .then ((responseJson) => {
+        console.log(responseJson);
         this.setState ({
           timeLeft: responseJson.response.route[0].summary.trafficTime
         }, function() {
@@ -73,6 +88,9 @@ export default class App extends React.Component {
         </View>
       )
     }
+
+    const press = () => false;
+    console.log(this.state.position);
 
     return (
       <View style={styles.container}>
