@@ -10,7 +10,9 @@ export default class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      isLoading: true
+      isLoading: true,
+      appId: "ASP74kP1aWXMTUXMl9Z7",
+      appCode: "TTqYfk0ASNuvbY7R5GtUcg"
     }
   }
 
@@ -18,15 +20,29 @@ export default class App extends React.Component {
     return navigator.geolocation.getCurrentPosition((position) => {
       this.setState({
         position: {
-          longitude: position.longitude,
-          latitude: position.latitude
+          longitude: position.coords.longitude,
+          latitude: position.coords.latitude
         },
         isLoading: false
-      })
-      console.log(position);
+      });
+      this.findRoutes();
     }, (error) => {
       alert(JSON.stringify(error))
-    });
+    });    
+  }
+
+  findRoutes() {
+    var today = new Date();
+    var month = (today.getMonth < 10 ? "" : "0") + today.getMonth();   
+    uri = "https://route.api.here.com/routing/7.2/calculateroute.json"
+    + "?app_id=" + this.state.appId
+    + "&app_code=" + this.state.appCode
+    + "&mode=fastest;car;"
+    + "&waypoint0=geo!" + this.state.position.longitude + "," + this.state.position.latitude
+    + "&waypoint1=geo!" + "lol" + "," + "lol"
+    + "&arrival=" + today.getFullYear() + "-" + month + "-" + today.getDate()
+    + "T" + today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+    console.log(uri);
   }
 
   render() {
@@ -41,7 +57,7 @@ export default class App extends React.Component {
     return (
       <View style={styles.container}>
         <Text>Alarm clock with HERE API!</Text>
-        <Text></Text>
+        <Text>{JSON.stringify(this.state.position)}</Text>
       </View>
     );
   }
