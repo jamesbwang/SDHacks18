@@ -19,9 +19,7 @@ export default class App extends React.Component {
   }
 
   componentWillMount() {
-    /*console.log("Started!");
-    return navigator.geolocation.getCurrentPosition((position) => {
-      console.log("Navigating!");
+    /*return navigator.geolocation.getCurrentPosition((position) => {
       this.setState({
         position: {
           longitude: position.coords.longitude,
@@ -32,16 +30,14 @@ export default class App extends React.Component {
       console.log(this);
     }, (error) => {
       alert(JSON.stringify(error))
-    }, {
-      enableHighAccuracy: false
     });*/
     this.setState({
       position: {
-        longitude: 32.885483,
-        latitude: -117.239150
+        latitude: 32.885483,
+        longitude: -117.239150
       },
       isLoading: false
-    });    
+    });
   }
 
   findRoutes() {
@@ -55,16 +51,17 @@ export default class App extends React.Component {
       + (today.getSeconds() < 10 ? "0" : "") + today.getSeconds();
     uri = "https://route.api.here.com/routing/7.2/calculateroute.json"
       + "?app_id=" + this.state.appId
-      + "&app_code=" + this.appCode
+      + "&app_code=" + this.state.appCode
       + "&mode=fastest;car;"
-      + "&waypoint0=geo!" + 0 + "," + 0
-      + "&waypoint1=geo!" + this.dest_latitude + "," + this.dest_longitude
+      + "&waypoint0=geo!" + this.state.position.latitude + "," + this.state.position.longitude
+      + "&waypoint1=geo!" + this.state.dest_latitude + "," + this.state.dest_longitude
       + "&departure=" + timestamp;
     console.log("Now Requesting: " + uri);
 
     return fetch(uri)
       .then ((response) => response.json())
       .then ((responseJson) => {
+        console.log(responseJson);
         this.setState ({
           timeLeft: responseJson.response.route[0].summary.trafficTime
         }, function() {
@@ -104,6 +101,7 @@ export default class App extends React.Component {
           onPress={this.findRoutes.bind(this)}
           title="GO!"
         />
+        <Text>{this.state.timeLeft} seconds</Text>
       </View>
     );
   }
