@@ -1,5 +1,5 @@
-import React from 'react';
-import { StyleSheet, Text, View, Button} from 'react-native';
+import React, {Component} from 'react';
+import { StyleSheet, Text, View, Button, Picker} from 'react-native';
 import Moment from 'react-moment';
 import { Ionicons } from '@expo/vector-icons';
 import { createStackNavigator, createBottomTabNavigator } from 'react-navigation';
@@ -8,8 +8,10 @@ import MapView from 'react-native-maps';
 
 export class HomeScreen extends React.Component {
   render() {
+    state = {user: 0}
     return (
       <View style={styles.container}>
+        <Text style={{fontSize: 40}}>Rouzzz</Text>
         <MapView
           style={styles.map}
           region={{
@@ -20,6 +22,25 @@ export class HomeScreen extends React.Component {
           }}
         >
         </MapView>
+        <Text>It takes me:</Text>
+        <Picker style={styles.picker} 
+          selectedValue={state.user} 
+          onValueChange = {(itemValue, itemIndex) => state.user=itemValue}>
+          <Picker.Item label="0" value="0"/>
+          <Picker.Item label="5" value="5" />
+          <Picker.Item label="10" value="10" />
+          <Picker.Item label="15" value="15" />
+          <Picker.Item label="20" value="20" />
+          <Picker.Item label="25" value="25" />
+          <Picker.Item label="30" value="30" />
+          <Picker.Item label="40" value="40" />
+          <Picker.Item label="50" value="50" />
+          <Picker.Item label="60" value="60" />
+          <Picker.Item label="75" value="75" />
+          <Picker.Item label="100" value="100" />
+        </Picker>
+        <Text>minutes to get ready.</Text>
+        <Text>{state.user}</Text>
         <Button
           title="Go to Countdown"
           onPress={() => this.props.navigation.navigate('Countdown')}
@@ -88,10 +109,16 @@ const styles = StyleSheet.create({
     fontSize : 20
   },
   map: {
-    height: 400,
+    height: 200,
     width: 400,
     justifyContent: 'flex-end',
     alignItems: 'center',
+  },
+  picker: {
+    height: 75,
+    width: 200,
+    alignItems: 'center',
+
   }
 });
 
@@ -99,7 +126,8 @@ const RootStack = createStackNavigator(
   {
     Home: HomeScreen,
     Countdown: CountdownScreen,
-    Alarm: AlarmScreen
+    Alarm: AlarmScreen,
+    // TimeSelect: TimeSelectScreen
   },
   {
     initialRouteName: 'Home',
