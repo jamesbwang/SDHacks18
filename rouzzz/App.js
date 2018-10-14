@@ -34,22 +34,26 @@ import {Marker} from 'react-native-maps';
 export class HomeScreen extends React.Component {
   num = 0;
   // currLat = this.state.position.latitude;    // once we integrate, use this.
-  // currLng = this.state.position.longitude;
+  // currLong = this.state.position.longitude;
   currLat = 32.7157;  // temp until api integration
-  currLng = -117.1611;
+  currLong = -117.1611;
   state = {
     readyTime: 0,
     region: { // for mapview
       latitude: this.currLat,
-      longitude: this.currLng,
+      longitude: this.currLong,
       latitudeDelta: 0.030,
       longitudeDelta: 0.0242,
     },
-    MarkerLatLng: { // for map marker
+    MarkerLatLong: { // for map marker
       latitude: this.currLat,
-      longitude: this.currLng
+      longitude: this.currLong
     },
   };
+  updateMarker = function(e) {
+    this.setState({MarkerLatLong: e.nativeEvent.coordinate});
+    this.map.animateToCoordinate(e.nativeEvent.coordinate);
+  }
   render() {
     return (
       <View style={styles.container}>
@@ -59,14 +63,15 @@ export class HomeScreen extends React.Component {
           style={styles.map}
           initialRegion={this.state.region}
           onMarkerDragEnd={(e)=>this.map.animateToCoordinate(e.nativeEvent.coordinate)}
+          onPress={(e) => this.updateMarker(e)}
         >
           <Marker draggable
-            coordinate={this.state.MarkerLatLng}
-            onDragEnd={(e) => this.setState({MarkerLatLng: e.nativeEvent.coordinate})}
+            coordinate={this.state.MarkerLatLong}
+            onDragEnd={(e) => this.updateMarker(e)}
           />
         </MapView>
-        <Text>Latitude: {this.state.MarkerLatLng.latitude}</Text>
-        <Text>Longitude: {this.state.MarkerLatLng.longitude}</Text>
+        <Text>Latitude: {this.state.MarkerLatLong.latitude}</Text>
+        <Text>Longitude: {this.state.MarkerLatLong.longitude}</Text>
         <Button
           title="Go to Countdown"
           onPress={() => this.props.navigation.navigate('Countdown')}
