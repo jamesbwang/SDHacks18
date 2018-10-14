@@ -75,6 +75,10 @@ export class HomeScreen extends React.Component {
           title="Go to Alarm"
           onPress={() => this.props.navigation.navigate('Alarm')}
         />
+        <Button
+          title="Go to TimeFinder (Debug page)"
+          onPress={() => this.props.navigation.navigate('TimeFinder')}
+        />
         <Text>
           How much time do you need to get ready?
         </Text>
@@ -104,6 +108,10 @@ export class AlarmScreen extends React.Component {
           title="Go to Countdown"
           onPress={() => this.props.navigation.navigate('Countdown')}
         />
+        <Button
+          title="Go to TimeFinder (Debug page)"
+          onPress={() => this.props.navigation.navigate('TimeFinder')}
+        />
       </View>
     );
   }
@@ -129,6 +137,10 @@ export class CountdownScreen extends React.Component {
         <Button
           title="Go to Alarm"
           onPress={() => this.props.navigation.navigate('Alarm')}
+        />
+        <Button
+          title="Go to TimeFinder (Debug page)"
+          onPress={() => this.props.navigation.navigate('TimeFinder')}
         />
       </View>
     );
@@ -232,6 +244,10 @@ export class TimeFinderScreen extends React.Component {
           title="GO!"
         />
         <Text>{this.state.timeLeft} seconds</Text>
+        <Button
+            title="Go to Home"
+            onPress={() => this.props.navigation.navigate('Home')}
+        />
       </View>
     );
   }
