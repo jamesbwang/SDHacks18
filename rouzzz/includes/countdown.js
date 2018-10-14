@@ -18,7 +18,7 @@ export default class CountdownScreen extends React.Component {
       initCoords: this.props.navigation.state.params.initCoords,
       destCoords: this.props.navigation.state.params.destCoords,
       timeToGetReady: this.props.navigation.state.params.num,
-      arrivalTime: new Date('October 13, 2018 19:55:00'),   // change this once we implement front end better
+      arrivalTime: this.props.navigation.state.params.arrivalTime,
     };
   }
 
@@ -55,53 +55,58 @@ export default class CountdownScreen extends React.Component {
 
   // calculate departure time and store it in this.state.departureTime
   getDepartureTime = () => {
+    console.log(this.state);
     this.findRoutes().then(function(){
       departureTime = this.state.arrivalTime.getTime() - this.state.timeLeft*1000 - this.state.timeToGetReady*60*1000;
+      console.log(departureTime);
       this.setState({departureTime: '0' + departureTime.getTime().getHours});
     });
   }
 
-  getDateString = (dateInMs) => {
-    return (dateInMs.getHours() + ":" + (dateInMs.getMinutes() >= 10 ? dateInMs.getMinutes().toString() : ('0' + dateInMs.getMinutes()).toString()));
+  date = new Date('October 13, 2018 19:55:00');
+  // state.timeToGetReady = 1000000;
+  dateString = this.state.arrivalTime.getHours() + ":" + (this.state.arrivalTime.getMinutes() >= 10 ? this.state.arrivalTime.getMinutes().toString() : ('0' + this.state.arrivalTime.getMinutes()).toString());
+    // this.date.getHours() + ":"
+    // + (this.date.getMinutes() >= 10 ? this.date.getMinutes().toString() : ('0' + this.date.getMinutes()).toString());
+  // arrivalTime = new Date('October 13, 2018 19:55:00');
+ 
+  render() {
+    const { navigation } = this.props;
+    this.state.timeToGetReady = navigation.getParam('ringtime', 3);
+    
+    return (
+      <View style={styles.container}>
+        <Text style={styles.timeHeader}>
+          {this.dateString}
+        </Text>
+        <Text>{"You will have " + Math.floor(this.state.timeToGetReady/60) + " minutes to get ready."}</Text>
+        <Text>
+          {"You will arrive by " + (this.state.arrivalTime.getHours() + ":" + (this.state.arrivalTime.getMinutes() >= 10 ? this.state.arrivalTime.getMinutes().toString() : ('0' + this.state.arrivalTime.getMinutes()).toString()))}
+        </Text>
+        <Button
+          title="Go to Home"
+          onPress={() => this.props.navigation.navigate('Home')}
+        />
+        <Button
+          title="Go to Alarm"
+          onPress={() => this.props.navigation.navigate('Alarm')}
+        />
+        <Button
+          title="Go to TimeFinder (Debug page)"
+          onPress={() => this.props.navigation.navigate('TimeFinder')}
+        />
+      </View>
+    );
   }
 
-  date = new Date('October 13, 2018 19:55:00');
-  dateString = this.getDateString(this.date);
- render() {
-   console.log(this);
-   this.getDepartureTime().then(function() {
-  return (
-    <View style={styles.container}>
-      <Text style={styles.timeHeader}>
-        {this.dateString}
-      </Text>
-      <Text>{"You will have " + (this.state.arrivalTime - this.state.departureTime) + "minutes to get ready."}</Text>
-      <Text>
-        {"You will arrive by " + this.getDateString(this.arrivalTime)}
-      </Text>
-      <Button
-        title="Go to Home"
-        onPress={() => this.props.navigation.navigate('Home')}
-      />
-      <Button
-        title="Go to Alarm"
-        onPress={() => this.props.navigation.navigate('Alarm')}
-      />
-      <Button
-        title="Go to TimeFinder (Debug page)"
-        onPress={() => this.props.navigation.navigate('TimeFinder')}
-      />
-    </View>
-   );})
- }
- componentDidMount() {
-   setInterval(() => {
-       this.setState(() => {
-           if(Date.now() >= this.state.departureTime){
-             this.props.navigation.navigate('Alarm')
-           }
-           return { unseen: "does not display" }
-       });
-   }, 10000);
- }
+  componentDidMount() {
+    setInterval(() => {
+        this.setState(() => {
+            if(Date.now() >= this.getDepartureTime()){
+              this.props.navigation.navigate('Alarm')
+            }
+            return { unseen: "does not display" }
+        });
+    }, this.state.timeToGetReady*1000);
+  }
 }

@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 import MapView from 'react-native-maps';
 import { Marker } from 'react-native-maps';
-import TimeFinderScreen from './debug';
+import DatePicker from 'react-native-datepicker'
 
 export default class HomeScreen extends React.Component {
   constructor(props) {
@@ -75,6 +75,19 @@ export default class HomeScreen extends React.Component {
             onDragEnd={(e) => this.updateMarker(e)}
           />
         </MapView>
+        <DatePicker
+        style={{width: 200}}
+        date={this.eta}
+        mode="datetime"
+        placeholder="select date"
+        is24Hour= {true}
+        format="HH:mm"
+        confirmBtnText="Confirm"
+        cancelBtnText="Cancel"
+        onDateChange={(date) => {this.eta = new Date(date), this.setState({arrivalTime: new Date(date)})}}
+      />
+        {/* <Text>Latitude: {this.state.MarkerLatLong.latitude}</Text>
+        <Text>Longitude: {this.state.MarkerLatLong.longitude}</Text> */}
         <Button
           title="Go to Countdown"
           onPress={() => this.props.navigation.navigate('Countdown', this.state)}
