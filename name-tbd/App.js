@@ -1,9 +1,16 @@
+/* 
+ * rouzzz
+ * ==============================================
+ * An alarm clock app that wakes you up only when
+ * it is truly necessary. Wakes you up as late
+ * as possible such that you can optimize the
+ * amount of sleep you get.
+ * 
+ * Programmed by Gideon Tong, Andrew Chau,
+ * James Wang, and Jeff Ding at SDHacks 2018.
+ */
+
 import React from 'react';
-<<<<<<< HEAD
-import { StyleSheet, Button, Text, View } from 'react-native';
-// import { Ionicons } from '@expo/vector-icons';
-// import { createStackNavigator, createBottomTabNavigator } from 'react-navigation';
-=======
 import {
   ActivityIndicator,
   Button,
@@ -12,7 +19,6 @@ import {
   TextInput,
   View
 } from 'react-native';
->>>>>>> gideon-rest-api
 
 export default class App extends React.Component {
   constructor(props) {
@@ -25,7 +31,8 @@ export default class App extends React.Component {
   }
 
   componentWillMount() {
-    /*return navigator.geolocation.getCurrentPosition((position) => {
+    /*
+    return navigator.geolocation.getCurrentPosition((position) => {
       this.setState({
         position: {
           longitude: position.coords.longitude,
@@ -36,7 +43,8 @@ export default class App extends React.Component {
       console.log(this);
     }, (error) => {
       alert(JSON.stringify(error))
-    });*/
+    });
+    */
     this.setState({
       position: {
         latitude: 32.885483,
@@ -81,31 +89,15 @@ export default class App extends React.Component {
   render() {
     if(this.state.isLoading) {
       return (
-        <View style={{flex: 1, padding: 20}}>
+        <View style={styles.center_contained}>
           <ActivityIndicator/>
+          <Text>{"\n"}Loading...</Text>
         </View>
       )
     }
 
     return (
-      <View style={styles.container}>
-<<<<<<< HEAD
-        <Text>Open up App.js to start working on your app.</Text>
-        <Button
-        title="Go to Settings"
-        onPress={() => this.props.navigation.navigate('Settings')}
-        />
-      </View>
-    );
-  }
-}
-
-export class Page1 extends React.Component {
-  render() {
-    return (
-      <View style={styles.container}>
-        <Text>New page!</Text>
-=======
+      <View style={styles.center_contained}>
         <Text>Alarm clock with HERE API!</Text>
         <Text>Current Location: {JSON.stringify(this.state.position.latitude)}, {JSON.stringify(this.state.position.longitude)}</Text>
         <Text>Destination Latitude:</Text>
@@ -125,14 +117,13 @@ export class Page1 extends React.Component {
           title="GO!"
         />
         <Text>{this.state.timeLeft} seconds</Text>
->>>>>>> gideon-rest-api
       </View>
     );
   }
 }
 
 const styles = StyleSheet.create({
-  container: {
+  center_contained: {
     flex: 1,
     backgroundColor: '#fff',
     alignItems: 'center',
