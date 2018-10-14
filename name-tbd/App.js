@@ -21,6 +21,7 @@ import {
 } from 'react-native';
 
 export default class App extends React.Component {
+<<<<<<< HEAD
   constructor(props) {
     super(props);
     this.state = {
@@ -84,6 +85,18 @@ export default class App extends React.Component {
       .catch ((error) => {
         console.error(error);
       })
+=======
+  render() {
+    return (
+      <View style={styles.container}>
+        <Text>Open up App.js to start working on your appASDFGHJ</Text>
+        <Button
+        title="Go to Settings"
+        onPress={() => this.props.navigation.navigate('Settings')}
+        />
+      </View>
+    );
+>>>>>>> front-end-with-timer
   }
 
   render() {
