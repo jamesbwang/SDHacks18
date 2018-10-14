@@ -26,6 +26,7 @@ import {
   createStackNavigator,
 } from 'react-navigation';
 
+import LoadingScreen from './includes/loading.js';
 import HomeScreen from './includes/home.js';
 import AlarmScreen from './includes/alarm.js';
 import CountdownScreen from './includes/countdown.js';
@@ -33,13 +34,14 @@ import TimeFinderScreen from './includes/debug.js';
 
 const RootStack = createStackNavigator(
   {
+    Loading: LoadingScreen,
     Home: HomeScreen,
     Countdown: CountdownScreen,
     Alarm: AlarmScreen,
     TimeFinder: TimeFinderScreen
   },
   {
-    initialRouteName: 'Home',
+    initialRouteName: 'Loading',
     navigationOptions: {
       headerStyle: {
         backgroundColor: '#fff',
