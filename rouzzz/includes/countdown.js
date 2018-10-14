@@ -14,7 +14,7 @@ export default class CountdownScreen extends React.Component {
     this.date.getHours() + ":"
     + (this.date.getMinutes() >= 10 ? this.date.getMinutes().toString() : ('0' + this.date.getMinutes()).toString());
   arrivalTime = new Date('October 13, 2018 19:55:00');
-  
+ 
   render() {
     const { navigation } = this.props;
     this.timeToGetReady = navigation.getParam('ringtime', 3);

@@ -35,10 +35,10 @@ export default class AlarmScreen extends React.Component {
             });
           }}
         />
-        <Button
+        /* <Button
           title="Go to TimeFinder (Debug page)"
           onPress={() => this.props.navigation.navigate('TimeFinder')}
-        />
+        /> */
       </View>
     );
   }
