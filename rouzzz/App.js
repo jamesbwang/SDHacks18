@@ -26,12 +26,47 @@ import {
 import {
   createStackNavigator,
 } from 'react-navigation';
+import MapView, { 
+  MapViewAnimated
+} from 'react-native-maps';
+import {Marker} from 'react-native-maps';
 
 export class HomeScreen extends React.Component {
   num = 0;
+  // currLat = this.state.position.latitude;    // once we integrate, use this.
+  // currLng = this.state.position.longitude;
+  currLat = 32.7157;  // temp until api integration
+  currLng = -117.1611;
+  state = {
+    readyTime: 0,
+    region: { // for mapview
+      latitude: this.currLat,
+      longitude: this.currLng,
+      latitudeDelta: 0.030,
+      longitudeDelta: 0.0242,
+    },
+    MarkerLatLng: { // for map marker
+      latitude: this.currLat,
+      longitude: this.currLng
+    },
+  };
   render() {
     return (
       <View style={styles.container}>
+        <Text style={{fontSize: 40}}>Rouzzz</Text>
+        <MapView
+          ref={map => this.map = map}
+          style={styles.map}
+          initialRegion={this.state.region}
+          onMarkerDragEnd={(e)=>this.map.animateToCoordinate(e.nativeEvent.coordinate)}
+        >
+          <Marker draggable
+            coordinate={this.state.MarkerLatLng}
+            onDragEnd={(e) => this.setState({MarkerLatLng: e.nativeEvent.coordinate})}
+          />
+        </MapView>
+        <Text>Latitude: {this.state.MarkerLatLng.latitude}</Text>
+        <Text>Longitude: {this.state.MarkerLatLng.longitude}</Text>
         <Button
           title="Go to Countdown"
           onPress={() => this.props.navigation.navigate('Countdown')}
@@ -39,6 +74,10 @@ export class HomeScreen extends React.Component {
         <Button
           title="Go to Alarm"
           onPress={() => this.props.navigation.navigate('Alarm')}
+        />
+        <Button
+          title="Go to TimeFinder (Debug page)"
+          onPress={() => this.props.navigation.navigate('TimeFinder')}
         />
         <Text>
           How much time do you need to get ready?
@@ -69,6 +108,10 @@ export class AlarmScreen extends React.Component {
           title="Go to Countdown"
           onPress={() => this.props.navigation.navigate('Countdown')}
         />
+        <Button
+          title="Go to TimeFinder (Debug page)"
+          onPress={() => this.props.navigation.navigate('TimeFinder')}
+        />
       </View>
     );
   }
@@ -94,6 +137,10 @@ export class CountdownScreen extends React.Component {
         <Button
           title="Go to Alarm"
           onPress={() => this.props.navigation.navigate('Alarm')}
+        />
+        <Button
+          title="Go to TimeFinder (Debug page)"
+          onPress={() => this.props.navigation.navigate('TimeFinder')}
         />
       </View>
     );
@@ -197,6 +244,10 @@ export class TimeFinderScreen extends React.Component {
           title="GO!"
         />
         <Text>{this.state.timeLeft} seconds</Text>
+        <Button
+            title="Go to Home"
+            onPress={() => this.props.navigation.navigate('Home')}
+        />
       </View>
     );
   }
@@ -218,7 +269,13 @@ const styles = StyleSheet.create({
   },
   timeHeader: {
     fontSize: 20
-  }
+  },
+  map: {
+    height: 300,
+    width: 500,
+    justifyContent: 'flex-end',
+    alignItems: 'center',
+  },
 });
 
 const RootStack = createStackNavigator(
