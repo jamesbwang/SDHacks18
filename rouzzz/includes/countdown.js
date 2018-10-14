@@ -83,7 +83,6 @@ export default class CountdownScreen extends React.Component {
     console.log("Destination Latitude: " + this.state.dest_latitude);
     console.log("Offset: " + this.offset);
     //console.log(this.timestamp);
-    10:00
     return (
       <View style={styles.container}>
         <Text style={{fontSize : 40}}> {"Wake up at: "}</Text>
