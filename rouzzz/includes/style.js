@@ -13,7 +13,7 @@ import {
       flex: 2,
       flexDirection: 'column',
       backgroundColor: '#fff',
-      alignItems: 'flex-start',
+      alignItems: 'center',
       justifyContent: 'center',
     },
     timeHeader: {
@@ -30,8 +30,13 @@ import {
       textAlign: 'center',
     },
     button_layout: {
-      flex: 1,
+      // flex: 1,
+      padding: 20,
       flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'center',
+      textAlign: 'center',
+      fontSize: 30,
     },
   });
   

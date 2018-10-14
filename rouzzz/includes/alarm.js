@@ -25,10 +25,6 @@ export default class AlarmScreen extends React.Component {
           resizeMode="cover"
           style={{ width: 0, height: 0 }}
         />
-        <Button
-          title="Dismiss"
-          onPress={() => this.props.navigation.navigate('Home')}
-        />
         <View style={styles.button_layout}>
           <Button
             title="Dismiss"
@@ -44,15 +40,6 @@ export default class AlarmScreen extends React.Component {
             }}
           />
         </View>
-        <Button
-          title="Snooze"
-          onPress={() => {
-            this.volume = 0;
-            this.props.navigation.goBack(null, {
-              ringtime: 300,
-            });
-          }}
-        />
         {/*
         <Button
           title="Go to TimeFinder (Debug page)"
