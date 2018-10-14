@@ -25,6 +25,14 @@ import {
       justifyContent: 'flex-start',
       alignItems: 'center',
     },
+    text_main: {
+      fontSize: 80,
+      textAlign: 'center',
+    },
+    button_layout: {
+      flex: 1,
+      flexDirection: 'row',
+    },
   });
   
   export default styles;
