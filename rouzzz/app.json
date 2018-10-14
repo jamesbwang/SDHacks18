@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "rouzzz",
-    "description": "This project is really great.",
+    "description": "The perfect app for people who love sleep.",
     "slug": "rouzzz",
     "privacy": "public",
     "sdkVersion": "30.0.0",
@@ -21,7 +21,11 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "io.github.jamesbwang.rouzzz"
+    },
+    "android:": {
+      "package": "io.github.jamesbwang.rouzzz"
     }
   }
 }
