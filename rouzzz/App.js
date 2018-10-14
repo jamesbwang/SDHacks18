@@ -16,6 +16,13 @@
 
 import React from 'react';
 import {
+  Button,
+  StyleSheet,
+  Text,
+  TextInput,
+  View
+} from 'react-native';
+import {
   createStackNavigator,
 } from 'react-navigation';
 
