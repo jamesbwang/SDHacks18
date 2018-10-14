@@ -6,15 +6,15 @@ import {
     center_contained: {
       flex: 1,
       backgroundColor: '#fff',
-      alignItems: 'flex-start',
-      justifyContent: 'center',
+      alignItems: 'center',
+      justifyContent: 'space-evenly',
     },
     container: {
-      flex: 2,
+      flex: 1,
       flexDirection: 'column',
       backgroundColor: '#fff',
-      alignItems: 'flex-start',
-      justifyContent: 'center',
+      alignItems: 'center',
+      justifyContent: 'space-evenly',
     },
     timeHeader: {
       fontSize: 40
@@ -22,7 +22,7 @@ import {
     map: {
       height: 400,
       width: 500,
-      justifyContent: 'flex-start',
+      justifyContent: 'center',
       alignItems: 'center',
     },
     text_main: {
@@ -31,7 +31,8 @@ import {
     },
     button_layout: {
       flex: 1,
-      flexDirection: 'row',
+      padding: 20,
+      alignItems: 'center'
     },
   });
   

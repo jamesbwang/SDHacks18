@@ -18,7 +18,10 @@ export default class AlarmScreen extends React.Component {
 
     return (
       <View style={styles.container}>
-        <Text>Time to wake up!</Text>
+        <Text style={{
+          fontSize : 50,
+          textAlign : 'center',
+        }}>Time to wake up!</Text>
         <Video
           source={{ uri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4' }}
           volume={this.volume}
@@ -27,45 +30,32 @@ export default class AlarmScreen extends React.Component {
           style={{ width: 0, height: 0 }}
         />
         <Button
+          style={styles.button_layout}
           title="Dismiss"
           onPress={() => this.props.navigation.navigate('Home')}
         />
         <View style={styles.button_layout}>
-          <Button
+          {/* <Button
             title="Dismiss"
             onPress={() => this.props.navigation.navigate('Home')}
-          />
+          /> */}
           <Button
+          style={styles.button_layout}
             title="Snooze"
             onPress={() => {
               this.volume = 0;
               this.props.navigation.goBack(null, {
-                ringtime: 300,
+                ringtime: 60000,
               });
             }}
           />
         </View>
         {/*
         <Button
-<<<<<<< HEAD
           title="Go to TimeFinder (Debug page)"
           onPress={() => this.props.navigation.navigate('TimeFinder')}
         />
         */}
-=======
-          title="Snooze"
-          onPress={() => {
-            this.volume = 0;
-            this.props.navigation.goBack(null, {
-              ringtime: 300,
-            });
-          }}
-        />
-        /* <Button
-          title="Go to TimeFinder (Debug page)"
-          onPress={() => this.props.navigation.navigate('TimeFinder')}
-        /> */
->>>>>>> 610d7478f012fdc26235eda65411fff55100beac
       </View>
     );
   }

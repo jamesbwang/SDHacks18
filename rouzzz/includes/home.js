@@ -55,9 +55,10 @@ export default class HomeScreen extends React.Component {
           How many minutes do you need to get ready?
         </Text>
         <TextInput
+        defaultValue="5"
           keyboardType='numeric'
           textAlign={'center'}
-
+          underlineColorAndroid='transparent'
           style={{
             height: 30,
             width: 150,
