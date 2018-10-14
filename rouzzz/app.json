@@ -23,9 +23,6 @@
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "io.github.jamesbwang.rouzzz"
-    },
-    "android:": {
-      "package": "io.github.jamesbwang.rouzzz"
     }
   }
 }
