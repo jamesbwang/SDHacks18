@@ -9,26 +9,34 @@ import styles from './style.js';
 
 export default class AlarmScreen extends React.Component {
   render() {
+    volume = 1.0;
+
     return (
       <View style={styles.container}>
+        <Video
+          source={{ uri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4' }}
+          volume={this.volume}
+          shouldPlay
+          resizeMode="cover"
+          style={{ width: 0, height: 0 }}
+        />
         <Button
           title="Go to Home"
           onPress={() => this.props.navigation.navigate('Home')}
         />
         <Button
-          title="Go to Countdown"
-          onPress={() => this.props.navigation.navigate('Countdown')}
-        />
-        <Button
           title="Go to TimeFinder (Debug page)"
           onPress={() => this.props.navigation.navigate('TimeFinder')}
         />
-        <Video
-	        source={{ uri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4' }}
-          shouldPlay
-	        resizeMode="cover"
-	        style={{ width: 0, height: 0 }}
-	      />
+        <Button
+          title="Snooze"
+          onPress={() => {
+            this.volume = 0;
+            this.props.navigation.goBack(null, {
+              ringtime: 300,
+            });
+          }}
+        />
       </View>
     );
   }
