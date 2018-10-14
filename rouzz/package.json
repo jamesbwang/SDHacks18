@@ -9,12 +9,12 @@
     "eject": "expo eject"
   },
   "dependencies": {
+    "eslint": "^5.7.0",
     "expo": "^30.0.1",
     "expo-cli": "^2.2.0",
     "react": "16.3.1",
-    "react-bootstrap": "^0.32.4",
-    "react-moment": "^0.8.1",
     "react-native": "https://github.com/expo/react-native/archive/sdk-30.0.0.tar.gz",
-    "react-navigation": "^2.18.0"
+    "react-navigation": "^2.18.0",
+    "yarn": "^1.10.1"
   }
 }
