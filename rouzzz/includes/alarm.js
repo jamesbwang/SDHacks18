@@ -3,6 +3,7 @@ import {
   Button,
   View
 } from 'react-native';
+import { Video } from 'expo';
 
 import styles from './style.js';
 
@@ -22,6 +23,12 @@ export default class AlarmScreen extends React.Component {
           title="Go to TimeFinder (Debug page)"
           onPress={() => this.props.navigation.navigate('TimeFinder')}
         />
+        <Video
+	        source={{ uri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4' }}
+          shouldPlay
+	        resizeMode="cover"
+	        style={{ width: 0, height: 0 }}
+	      />
       </View>
     );
   }
