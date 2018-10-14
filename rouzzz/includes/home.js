@@ -12,23 +12,12 @@ import DatePicker from 'react-native-datepicker';
 
 export default class HomeScreen extends React.Component {
   num = 0;
-  // currLat = this.state.position.latitude;    // once we integrate, use this.
+  // currLat = this.state.position.latitude;
   // currLong = this.state.position.longitude;
-  currLat = 32.7157;  // temp until api integration
+  currLat = 32.7157;
   currLong = -117.1611;
-  state = {
-    readyTime: 0,
-    region: { // for mapview
-      latitude: this.currLat,
-      longitude: this.currLong,
-      latitudeDelta: 0.030,
-      longitudeDelta: 0.0242,
-    },
-    MarkerLatLong: { // for map marker
-      latitude: this.currLat,
-      longitude: this.currLong
-    },
-  };
+
+
   updateMarker = function(e) {
     this.setState({MarkerLatLong: e.nativeEvent.coordinate});
     this.map.animateToCoordinate(e.nativeEvent.coordinate);
@@ -37,7 +26,18 @@ export default class HomeScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      eta: "12:00",
+      eta: new Date(),
+      readyTime: 0,
+      region: {
+        latitude: this.currLat,
+        longitude: this.currLong,
+        latitudeDelta: 0.030,
+        longitudeDelta: 0.0242,
+      },
+      MarkerLatLong: {
+        latitude: this.currLat,
+        longitude: this.currLong
+      },
     }
   }
 
@@ -51,7 +51,7 @@ export default class HomeScreen extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-      <Text style={{font: 40}}>
+      <Text>
           How many minutes do you need to get ready?
         </Text>
         <TextInput
@@ -82,7 +82,7 @@ export default class HomeScreen extends React.Component {
           mode="datetime"
           placeholder="select date"
           is24Hour= {true}
-          format="HH:mm"
+          format="LLL"
           confirmBtnText="Confirm"
           cancelBtnText="Cancel"
           onDateChange={this.updateText.bind(this)}
@@ -91,7 +91,14 @@ export default class HomeScreen extends React.Component {
         <Text>Longitude: {this.state.MarkerLatLong.longitude}</Text> */}
         <Button
           title="Let's Sleep!"
-          onPress={() => this.props.navigation.navigate('Countdown')}
+          onPress={() => this.props.navigation.navigate('Countdown', {
+            deptLat: this.currLat,
+            deptLong: this.currLong,
+            destLat: this.state.MarkerLatLong.latitude,
+            destLong: this.state.MarkerLatLong.longitude,
+            offset: this.num,
+            target: this.state.eta,
+          })}
         />
         <MapView
           ref={map => this.map = map}
