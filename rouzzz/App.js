@@ -31,6 +31,7 @@ import MapView, {
 } from 'react-native-maps';
 import { Marker } from 'react-native-maps';
 
+import { styles } from './includes/style.js';
 import { TimeFinderScreen } from './includes/debug.js';
 
 export class HomeScreen extends React.Component {
@@ -148,25 +149,6 @@ export class CountdownScreen extends React.Component {
     );
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    flexDirection: 'column',
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  timeHeader: {
-    fontSize: 20
-  },
-  map: {
-    height: 300,
-    width: 500,
-    justifyContent: 'flex-end',
-    alignItems: 'center',
-  },
-});
 
 const RootStack = createStackNavigator(
   {
