@@ -18,7 +18,7 @@ export default class CountdownScreen extends React.Component {
        <Text style={styles.timeHeader}>
          {this.dateString}
        </Text>
-       <Text>{"You will have " + this.timeToGetReady + "minutes to get ready."}</Text>
+       <Text>{"You will have " + this.timeToGetReady + " minutes to get ready."}</Text>
        <Text>
          {"You will arrive by " + (this.arrivalTime.getHours() + ":" + (this.arrivalTime.getMinutes() >= 10 ? this.arrivalTime.getMinutes().toString() : ('0' + this.arrivalTime.getMinutes()).toString()))}
        </Text>
