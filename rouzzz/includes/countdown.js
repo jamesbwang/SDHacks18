@@ -12,7 +12,6 @@ export default class CountdownScreen extends React.Component {
   dateString = (this.date.getHours() + ":" + (this.date.getMinutes() >= 10 ? this.date.getMinutes().toString() : ('0' + this.date.getMinutes()).toString()));
   arrivalTime = new Date('October 13, 2018 19:55:00');
  render() {
-   
    return (
      <View style={styles.container}>
        <Text style={styles.timeHeader}>

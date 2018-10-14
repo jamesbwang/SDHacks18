@@ -10,14 +10,14 @@ import {
       justifyContent: 'center',
     },
     container: {
-      flex: 1,
+      flex: 2,
       flexDirection: 'column',
       backgroundColor: '#fff',
-      alignItems: 'center',
+      alignItems: 'flex-start',
       justifyContent: 'center',
     },
     timeHeader: {
-      fontSize: 20
+      fontSize: 40
     },
     map: {
       height: 400,

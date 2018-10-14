@@ -42,13 +42,19 @@ export default class HomeScreen extends React.Component {
         </Text>
         <TextInput
           keyboardType='numeric'
+          textAlign={'center'}
+
           style={{
             height: 30,
             width: 150,
             borderLeftWidth: 1,
+            borderLeftColor: 'grey',
             borderRightWidth: 1,
+            borderRightColor: 'grey',
             borderTopWidth: 1,
-            borderBottomWidth: 1
+            borderTopColor: 'grey',
+            borderBottomWidth: 1,
+            borderBottomColor: 'grey'
           }}
           onChangeText={(text) => this.onChanged(text)}
           value={this.num}
