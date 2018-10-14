@@ -96,10 +96,10 @@ export default class CountdownScreen extends React.Component {
           title="Go to Alarm"
           onPress={() => this.props.navigation.navigate('Alarm')}
         />
-        <Button
+        {/* <Button
           title="Test_Location"
           onPress={this.findRoutes.bind(this)}
-        />
+        /> */}
         <Text>
           {this.state.timeToGetReady} seconds to arrive.
         </Text>
