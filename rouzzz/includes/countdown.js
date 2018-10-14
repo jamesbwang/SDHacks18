@@ -5,7 +5,7 @@ import {
   View
 } from 'react-native';
 
-import { styles } from './includes/style.js';
+import { styles } from './style.js';
 
 export default class CountdownScreen extends React.Component {
     render() {

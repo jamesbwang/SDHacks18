@@ -10,7 +10,7 @@ import {
 } from 'react-native-maps';
 import { Marker } from 'react-native-maps';
 
-import { styles } from './includes/style.js';
+import { styles } from './style.js';
 
 export default class HomeScreen extends React.Component {
     num = 0;

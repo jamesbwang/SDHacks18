@@ -2,8 +2,6 @@ import {
   StyleSheet,
 } from 'react-native';
 
-import { styles } from './includes/style.js';
-
 const styles = StyleSheet.create({
   center_contained: {
     flex: 1,

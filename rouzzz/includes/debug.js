@@ -8,8 +8,6 @@ import {
   View
 } from 'react-native';
 
-import { styles } from './includes/style.js';
-
 export default class TimeFinderScreen extends React.Component {
     constructor(props) {
       super(props);

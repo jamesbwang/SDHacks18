@@ -18,9 +18,11 @@ import React from 'react';
 import {
   createStackNavigator,
 } from 'react-navigation';
-import { AlarmScreen } from './includes/alarm.js';
-import { CountdownScreen } from './includes/countdown.js';
-import { TimeFinderScreen } from './includes/debug.js';
+
+import HomeScreen from './includes/home.js';
+import AlarmScreen from './includes/alarm.js';
+import CountdownScreen from './includes/countdown.js';
+import TimeFinderScreen from './includes/debug.js';
 
 const RootStack = createStackNavigator(
   {
