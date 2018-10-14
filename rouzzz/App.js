@@ -25,26 +25,7 @@ import {
 } from 'react-native';
 import {
   createStackNavigator,
-  createBottomTabNavigator
 } from 'react-navigation';
-
-const RootStack = createStackNavigator(
-  {
-    Home: HomeScreen,
-    Countdown: CountdownScreen,
-    Alarm: AlarmScreen,
-    TimeFinder: TimeFinderScreen
-  },
-  {
-    initialRouteName: 'Home',
-  }
-);
-
-export default class App extends React.Component {
-  render() {
-    return <RootStack/>;
-  }
-}
 
 export class HomeScreen extends React.Component {
   num = 0;
@@ -239,3 +220,21 @@ const styles = StyleSheet.create({
     fontSize: 20
   }
 });
+
+const RootStack = createStackNavigator(
+  {
+    Home: HomeScreen,
+    Countdown: CountdownScreen,
+    Alarm: AlarmScreen,
+    TimeFinder: TimeFinderScreen
+  },
+  {
+    initialRouteName: 'Home',
+  }
+);
+
+export default class App extends React.Component {
+  render() {
+    return <RootStack/>;
+  }
+}
