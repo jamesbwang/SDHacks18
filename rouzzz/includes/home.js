@@ -97,7 +97,7 @@ export default class HomeScreen extends React.Component {
             destLat: this.state.MarkerLatLong.latitude,
             destLong: this.state.MarkerLatLong.longitude,
             offset: this.num,
-            target: this.state.eta,
+            target: new Date(this.state.eta),
           })}
         />
         <MapView

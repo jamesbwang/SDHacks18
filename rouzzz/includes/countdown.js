@@ -8,12 +8,7 @@ import {
 import styles from './style.js';
 
 export default class CountdownScreen extends React.Component {
-  date = new Date('October 15, 2018 19:55:00');
-  //timeToGetReady = 1000000;
-  dateString =
-    this.date.getHours() + ":"
-    + (this.date.getMinutes() >= 10 ? this.date.getMinutes().toString() : ('0' + this.date.getMinutes()).toString());
-  arrivalTime = new Date('October 13, 2018 19:55:00');
+
 
   constructor(props) {
     super(props);
@@ -28,16 +23,16 @@ export default class CountdownScreen extends React.Component {
       },
       dest_latitude: navigation.getParam('destLat'),
       dest_longitude: navigation.getParam('destLong'),
-      //timeToGetReady: 0,
+      timeToGetReady: 0,
     };
   }
- 
+
   // Finds the time to drive to a location and stores it in traffic time (timeToGetReady).
   findRoutes() {
     var today = new Date();
     var timestamp =
       today.getFullYear() + "-"
-      + (today.getMonth() < 9 ? "0" : "") + parseInt(today.getMonth()+1) + "-"
+      + (today.getMonth() < 9 ? "0" : "") + parseInt(today.getMonth() + 1) + "-"
       + (today.getDate() < 10 ? "0" : "") + today.getDate() + "T"
       + (today.getHours() < 10 ? "0" : "") + today.getHours() + ":"
       + (today.getMinutes() < 10 ? "0" : "") + today.getMinutes() + ":"
@@ -51,17 +46,19 @@ export default class CountdownScreen extends React.Component {
       + "&departure=" + timestamp;
     console.log("Now Requesting: " + uri);
 
+
+
     return fetch(uri)
-      .then ((response) => response.json())
-      .then ((responseJson) => {
+      .then((response) => response.json())
+      .then((responseJson) => {
         //console.log(responseJson);
-        this.setState ({
+        this.setState({
           timeToGetReady: responseJson.response.route[0].summary.trafficTime
-        }, function() {
+        }, function () {
           console.log("Seconds to arrive: " + this.state.timeToGetReady);
         });
       })
-      .catch ((error) => {
+      .catch((error) => {
         console.error(error);
       })
   }
@@ -69,39 +66,24 @@ export default class CountdownScreen extends React.Component {
   render() {
     const { navigation } = this.props;
     //this.timeToGetReady = navigation.getParam('ringtime', 300);
-    
+
     this.state.position.latitude = navigation.getParam('deptLat');
     this.state.position.longitude = navigation.getParam('deptLong');
     this.offset = navigation.getParam('offset');
-    this.timestamp = navigation.getParam('target');
+    var arrivalTime = navigation.getParam('target');
+    var arrivalDate = new Date(arrivalTime);
 
-    console.log("Destination Latitude: " + this.state.dest_latitude);
-    console.log("Offset: " + this.offset);
-    //console.log(this.timestamp);
-    
+    console.log("arrival: " + arrivalTime);
+    wakeuptime = new Date(arrivalTime.getTime() - this.offset * 1000 - this.state.timeToGetReady * 1000);
+    console.log("wakeup:" + wakeuptime);
+    wakeupstring = wakeuptime.getHours() + ":" + (wakeuptime.getMinutes() >= 10 ? wakeuptime.getMinutes().toString() : ('0' + wakeuptime.getMinutes()).toString());
     return (
       <View style={styles.container}>
-        <Text style={styles.timeHeader}>
-          {this.dateString}
-        </Text>
-        <Text>{"You will have " + Math.floor(this.timeToGetReady/60) + " minutes to get ready."}</Text>
+        <Text style={{ fontSize: 40 }}> {"Wake up at: "}</Text>
+        <Text style={{ fontSize: 59 }}> {wakeupstring}</Text>
+        {/* <Text style={{ fontSize: 59 }}>09:17</Text> */}
         <Text>
-          {"You will arrive by " + (this.arrivalTime.getHours() + ":" + (this.arrivalTime.getMinutes() >= 10 ? this.arrivalTime.getMinutes().toString() : ('0' + this.arrivalTime.getMinutes()).toString()))}
-        </Text>
-        <Button
-          title="Go to Home"
-          onPress={() => this.props.navigation.navigate('Home')}
-        />
-        <Button
-          title="Go to Alarm"
-          onPress={() => this.props.navigation.navigate('Alarm')}
-        />
-        {/* <Button
-          title="Test_Location"
-          onPress={this.findRoutes.bind(this)}
-        /> */}
-        <Text>
-          {this.state.timeToGetReady} seconds to arrive.
+          {"You will arrive by " + (arrivalDate.getHours() + ":" + (arrivalDate.getMinutes() >= 10 ? arrivalDate.getMinutes().toString() : ('0' + arrivalDate.getMinutes()).toString()))}
         </Text>
       </View>
     );
@@ -109,13 +91,13 @@ export default class CountdownScreen extends React.Component {
 
   componentDidMount() {
     setInterval(() => {
-        this.setState(() => {
-            this.findRoutes();
-            if(new Date(this.timestamp).getTime() - this.offset*1000 <= new Date() - this.state.timeToGetReady*1000){
-              this.props.navigation.navigate('Alarm')
-            }
-            return { unseen: "does not display" }
-        });
-    }, 100);
+      this.setState(() => {
+        this.findRoutes();
+        if (new Date(this.timestamp).getTime() >= this.state.wakeuptime) {
+          this.props.navigation.navigate('Alarm')
+        }
+        return { unseen: "does not display" }
+      });
+    }, 10000);
   }
 }
