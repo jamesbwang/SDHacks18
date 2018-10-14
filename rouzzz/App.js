@@ -19,12 +19,12 @@ import {
   createStackNavigator,
 } from 'react-navigation';
 
-import HomeScreen from './includes/home.js';
-import AlarmScreen from './includes/alarm.js';
-import CountdownScreen from './includes/countdown.js';
-import TimeFinderScreen from './includes/debug.js';
+import HomeScreen from './includes/home';
+import AlarmScreen from './includes/alarm';
+import CountdownScreen from './includes/countdown';
+import TimeFinderScreen from './includes/debug';
 
-const RootStack = createStackNavigator(
+export const RootStack = createStackNavigator(
   {
     Home: HomeScreen,
     Countdown: CountdownScreen,
