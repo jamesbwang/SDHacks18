@@ -17,8 +17,8 @@ export default class CountdownScreen extends React.Component {
       appCode: "TTqYfk0ASNuvbY7R5GtUcg",
       initCoords: this.props.navigation.state.params.initCoords,
       destCoords: this.props.navigation.state.params.destCoords,
-      timeToGetReady: this.props.navigation.state.params.num,
-      arrivalTime: this.props.navigation.state.params.arrivalTime,
+      timeToGetReady: this.props.navigation.state.params.num,   // TODO: make sure this is passed properly
+      arrivalTime: this.props.navigation.state.params.arrivalTime,  // TODO: check the format for how this is passed
     };
   }
 
@@ -54,8 +54,8 @@ export default class CountdownScreen extends React.Component {
   }
 
   // calculate departure time and store it in this.state.departureTime
-  getDepartureTime = () => {
-    console.log(this.state);
+  getDepartureTime = () => {        // TODO: This will throw unresolved promise errors. I think this will be solved with figuring out the
+    console.log(this.state);        //       format for state.arrivalTime, though. 
     this.findRoutes().then(function(){
       departureTime = this.state.arrivalTime.getTime() - this.state.timeLeft*1000 - this.state.timeToGetReady*60*1000;
       console.log(departureTime);
@@ -63,7 +63,7 @@ export default class CountdownScreen extends React.Component {
     });
   }
 
-  date = new Date('October 13, 2018 19:55:00');
+  date = new Date('October 13, 2018 19:55:00'); // TODO: Make sure we're pulling data from this.state, not from arbitrary values. 
   // state.timeToGetReady = 1000000;
   dateString = this.state.arrivalTime.getHours() + ":" + (this.state.arrivalTime.getMinutes() >= 10 ? this.state.arrivalTime.getMinutes().toString() : ('0' + this.state.arrivalTime.getMinutes()).toString());
     // this.date.getHours() + ":"
