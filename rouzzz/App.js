@@ -1,5 +1,5 @@
 /* 
- * rouzzz
+ * rouzzzorz
  * ==============================================
  * An alarm clock app that wakes you up only when
  * it is truly necessary. Wakes you up as late
@@ -19,12 +19,12 @@ import {
   createStackNavigator,
 } from 'react-navigation';
 
-import HomeScreen from './includes/home';
-import AlarmScreen from './includes/alarm';
-import CountdownScreen from './includes/countdown';
-import TimeFinderScreen from './includes/debug';
+import HomeScreen from './includes/home.js';
+import AlarmScreen from './includes/alarm.js';
+import CountdownScreen from './includes/countdown.js';
+import TimeFinderScreen from './includes/debug.js';
 
-export const RootStack = createStackNavigator(
+const RootStack = createStackNavigator(
   {
     Home: HomeScreen,
     Countdown: CountdownScreen,
