@@ -6,7 +6,7 @@ import {
     center_contained: {
       flex: 1,
       backgroundColor: '#fff',
-      alignItems: 'center',
+      alignItems: 'flex-start',
       justifyContent: 'center',
     },
     container: {
@@ -20,9 +20,9 @@ import {
       fontSize: 20
     },
     map: {
-      height: 300,
+      height: 400,
       width: 500,
-      justifyContent: 'flex-end',
+      justifyContent: 'flex-start',
       alignItems: 'center',
     },
   });

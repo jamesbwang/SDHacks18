@@ -1,14 +1,14 @@
 import React from 'react';
 import {
-  Button,
   StyleSheet,
   Text,
   TextInput,
-  View
+  View,
+  Button
 } from 'react-native';
 import MapView from 'react-native-maps';
 import { Marker } from 'react-native-maps';
-import DatePicker from 'react-native-datepicker'
+import DatePicker from 'react-native-datepicker';
 
 export default class HomeScreen extends React.Component {
   num = 0;
@@ -37,7 +37,6 @@ export default class HomeScreen extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text style={{fontSize: 40}}>Rouzzz</Text>
         <MapView
           ref={map => this.map = map}
           style={styles.map}
@@ -52,6 +51,7 @@ export default class HomeScreen extends React.Component {
         </MapView>
         <DatePicker
         style={{width: 200}}
+        showIcon={false}
         date={this.eta}
         mode="datetime"
         placeholder="select date"
@@ -59,12 +59,13 @@ export default class HomeScreen extends React.Component {
         format="HH:mm"
         confirmBtnText="Confirm"
         cancelBtnText="Cancel"
-        onDateChange={(date) => {this.eta = new Date(date)}}
+        onDateChange={(date) => {this.eta = new Date(date);
+        console.log(date.toString())}}
       />
         {/* <Text>Latitude: {this.state.MarkerLatLong.latitude}</Text>
         <Text>Longitude: {this.state.MarkerLatLong.longitude}</Text> */}
         <Button
-          title="Go to Countdown"
+          title="Let's Sleep!"
           onPress={() => this.props.navigation.navigate('Countdown')}
         />
         {/* <Button
@@ -80,6 +81,7 @@ export default class HomeScreen extends React.Component {
         </Text>
         <TextInput
           keyboardType='numeric'
+          defaultValue='0'
           onChangeText={(text) => this.onChanged(text)}
           value={this.num}
           maxLength={3}
@@ -110,9 +112,10 @@ const styles = StyleSheet.create({
     fontSize: 20
   },
   map: {
-    height: 300,
+    height: 400,
     width: 500,
     justifyContent: 'flex-end',
     alignItems: 'center',
   },
+  
 });
