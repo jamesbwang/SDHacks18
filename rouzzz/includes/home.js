@@ -33,12 +33,12 @@ export default class HomeScreen extends React.Component {
       latitudeDelta: 0.030,
       longitudeDelta: 0.0242,
     },
-    num: '0',
+    num: '0', // time to get ready
     destCoords: {  // for marker
         latitude: pos.coords.latitude,
         longitude: pos.coords.longitude
       },
-    initCoords: {  // for marker
+    initCoords: {  // user's curr loc.
         latitude: pos.coords.latitude,
         longitude: pos.coords.longitude
       },
