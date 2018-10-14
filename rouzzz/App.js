@@ -21,7 +21,7 @@ import {
   StyleSheet,
   Text,
   TextInput,
-  View
+  View,
 } from 'react-native';
 import {
   createStackNavigator,
@@ -30,11 +30,12 @@ import MapView, {
   MapViewAnimated
 } from 'react-native-maps';
 import {Marker} from 'react-native-maps';
+import { Video } from 'expo';
 //import Audio from 'expo-cli';
 
 //var SoundPlayer = require('react-native-sound');
 
-import Video from 'react-native-video';
+//import Video from 'react-native-video';
 
 export class HomeScreen extends React.Component {
   num = 0;
@@ -123,13 +124,12 @@ export class AlarmScreen extends React.Component {
           title="Go to TimeFinder (Debug page)"
           onPress={() => this.props.navigation.navigate('TimeFinder')}
         />
-        <Button
-          title="PLAY TEST AUDIO"
-          onPress={() => {
-              //new SoundPlayer('alarm.mp3', SoundPlayer.MAIN_BUNDLE).play();
-            }
-          }
-        />
+        <Video
+	        source={{ uri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4' }}
+          shouldPlay
+	        resizeMode="cover"
+	        style={{ width: 0, height: 0 }}
+	      />
       </View>
     );
   }
