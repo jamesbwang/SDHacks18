@@ -9,6 +9,10 @@ import { Video } from 'expo';
 import styles from './style.js';
 
 export default class AlarmScreen extends React.Component {
+  static navigationOptions = {
+    title: "Alarm is ringing!",
+  }
+
   render() {
     volume = 1.0;
 
@@ -26,7 +30,29 @@ export default class AlarmScreen extends React.Component {
           title="Dismiss"
           onPress={() => this.props.navigation.navigate('Home')}
         />
+        <View style={styles.button_layout}>
+          <Button
+            title="Dismiss"
+            onPress={() => this.props.navigation.navigate('Home')}
+          />
+          <Button
+            title="Snooze"
+            onPress={() => {
+              this.volume = 0;
+              this.props.navigation.goBack(null, {
+                ringtime: 300,
+              });
+            }}
+          />
+        </View>
+        {/*
         <Button
+<<<<<<< HEAD
+          title="Go to TimeFinder (Debug page)"
+          onPress={() => this.props.navigation.navigate('TimeFinder')}
+        />
+        */}
+=======
           title="Snooze"
           onPress={() => {
             this.volume = 0;
@@ -39,6 +65,7 @@ export default class AlarmScreen extends React.Component {
           title="Go to TimeFinder (Debug page)"
           onPress={() => this.props.navigation.navigate('TimeFinder')}
         /> */
+>>>>>>> 610d7478f012fdc26235eda65411fff55100beac
       </View>
     );
   }

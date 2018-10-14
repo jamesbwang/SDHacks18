@@ -40,11 +40,23 @@ const RootStack = createStackNavigator(
   },
   {
     initialRouteName: 'Home',
+    navigationOptions: {
+      headerStyle: {
+        backgroundColor: '#fff',
+        elevation: 0,
+        height: 20,
+        borderBottomWidth: 0,
+      },
+      headerTintColor: '#fff',
+      headerTitleStyle: {
+        fontWeight: 'bold',
+      },
+    },
   }
 );
 
 export default class App extends React.Component {
   render() {
-    return <RootStack/>;
+    return <RootStack />;
   }
 }
