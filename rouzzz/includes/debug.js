@@ -19,7 +19,7 @@ export default class TimeFinderScreen extends React.Component {
   }
 
   componentWillMount() {
-    /*
+    
     return navigator.geolocation.getCurrentPosition((position) => {
       this.setState({
         position: {
@@ -32,14 +32,14 @@ export default class TimeFinderScreen extends React.Component {
     }, (error) => {
       alert(JSON.stringify(error))
     });
-    */
-    this.setState({
-      position: {
-        latitude: 32.885483,
-        longitude: -117.239150
-      },
-      isLoading: false
-    });
+    
+    // this.setState({    //
+    //   position: {
+    //     latitude: 32.885483,
+    //     longitude: -117.239150
+    //   },
+    //   isLoading: false
+    // });
   }
 
   findRoutes() {

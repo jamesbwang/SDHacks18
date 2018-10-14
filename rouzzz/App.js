@@ -1,5 +1,5 @@
 /* 
- * rouzzzorz
+ * rouzzz
  * ==============================================
  * An alarm clock app that wakes you up only when
  * it is truly necessary. Wakes you up as late

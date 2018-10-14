@@ -4,35 +4,62 @@ import {
   StyleSheet,
   Text,
   TextInput,
-  View
+  View,
+  ActivityIndicator
 } from 'react-native';
 import MapView from 'react-native-maps';
 import { Marker } from 'react-native-maps';
+import TimeFinderScreen from './debug';
 
 export default class HomeScreen extends React.Component {
-  num = 0;
-  // currLat = this.state.position.latitude;    // once we integrate, use this.
-  // currLong = this.state.position.longitude;
-  currLat = 32.7157;  // temp until api integration
-  currLong = -117.1611;
-  state = {
-    readyTime: 0,
+  constructor(props) {
+    super(props);
+    this.state = {
+      appId: "ASP74kP1aWXMTUXMl9Z7",
+      appCode: "TTqYfk0ASNuvbY7R5GtUcg",
+      isLoading: true
+    };
+  }
+
+  componentWillMount() {
+    navigator.geolocation.getCurrentPosition((pos) => this.setCoords(pos));
+  }
+
+  setCoords = (pos) => {
+    this.setState({
     region: { // for mapview
-      latitude: this.currLat,
-      longitude: this.currLong,
+      latitude: pos.coords.latitude,
+      longitude: pos.coords.longitude,
       latitudeDelta: 0.030,
       longitudeDelta: 0.0242,
     },
-    MarkerLatLong: { // for map marker
-      latitude: this.currLat,
-      longitude: this.currLong
-    },
-  };
+    num: '0',
+    destCoords: {  // for marker
+        latitude: pos.coords.latitude,
+        longitude: pos.coords.longitude
+      },
+    initCoords: {  // for marker
+        latitude: pos.coords.latitude,
+        longitude: pos.coords.longitude
+      },
+    isLoading: false
+    });
+  }  
+
   updateMarker = function(e) {
-    this.setState({MarkerLatLong: e.nativeEvent.coordinate});
+    this.setState({destCoords: e.nativeEvent.coordinate});
     this.map.animateToCoordinate(e.nativeEvent.coordinate);
   }
+
   render() {
+    if(this.state.isLoading) {
+      return (
+        <View style={styles.container}>
+          <ActivityIndicator/>
+          <Text>{"\n"}Loading...</Text>
+        </View>
+      )
+    }
     return (
       <View style={styles.container}>
         <Text style={{fontSize: 40}}>Rouzzz</Text>
@@ -40,19 +67,18 @@ export default class HomeScreen extends React.Component {
           ref={map => this.map = map}
           style={styles.map}
           initialRegion={this.state.region}
-          onMarkerDragEnd={(e)=>this.map.animateToCoordinate(e.nativeEvent.coordinate)}
           onPress={(e) => this.updateMarker(e)}
         >
           <Marker draggable
-            coordinate={this.state.MarkerLatLong}
+            coordinate={this.state.destCoords}
             onDragEnd={(e) => this.updateMarker(e)}
           />
         </MapView>
-        <Text>Latitude: {this.state.MarkerLatLong.latitude}</Text>
-        <Text>Longitude: {this.state.MarkerLatLong.longitude}</Text>
+        <Text>Latitude: {this.state.destCoords.latitude}</Text>
+        <Text>Longitude: {this.state.destCoords.longitude}</Text>
         <Button
           title="Go to Countdown"
-          onPress={() => this.props.navigation.navigate('Countdown')}
+          onPress={() => this.props.navigation.navigate('Countdown', this.state)}
         />
         <Button
           title="Go to Alarm"
@@ -68,24 +94,18 @@ export default class HomeScreen extends React.Component {
         <TextInput
           keyboardType='numeric'
           onChangeText={(text) => this.onChanged(text)}
-          value={this.num}
+          value={this.state.num}
           maxLength={3}
         />
       </View>
     );
   }
   onChanged(text) {
-    this.num = +text;
+    this.setState({num: +text});
   }
 }
 
 const styles = StyleSheet.create({
-  // center_contained: {
-  //   flex: 1,
-  //   backgroundColor: '#fff',
-  //   alignItems: 'center',
-  //   justifyContent: 'center',
-  // },
   container: {
     flex: 1,
     flexDirection: 'column',
