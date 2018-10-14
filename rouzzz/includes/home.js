@@ -1,14 +1,14 @@
 import React from 'react';
 import {
-  Button,
   StyleSheet,
   Text,
   TextInput,
-  View
+  View,
+  Button
 } from 'react-native';
 import MapView from 'react-native-maps';
 import { Marker } from 'react-native-maps';
-import DatePicker from 'react-native-datepicker'
+import DatePicker from 'react-native-datepicker';
 
 export default class HomeScreen extends React.Component {
   num = 0;
@@ -29,15 +29,70 @@ export default class HomeScreen extends React.Component {
       longitude: this.currLong
     },
   };
-  eta = "12:00"
   updateMarker = function(e) {
     this.setState({MarkerLatLong: e.nativeEvent.coordinate});
     this.map.animateToCoordinate(e.nativeEvent.coordinate);
   }
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      eta: "12:00",
+    }
+  }
+
+  updateText(date) {
+    this.setState({
+      eta: date,
+    });
+    console.log(this.state.eta);
+  }
+
   render() {
     return (
       <View style={styles.container}>
-        <Text style={{fontSize: 40}}>Rouzzz</Text>
+      <Text style={{font: 40}}>
+          How many minutes do you need to get ready?
+        </Text>
+        <TextInput
+          keyboardType='numeric'
+          textAlign={'center'}
+
+          style={{
+            height: 30,
+            width: 150,
+            borderLeftWidth: 1,
+            borderLeftColor: 'grey',
+            borderRightWidth: 1,
+            borderRightColor: 'grey',
+            borderTopWidth: 1,
+            borderTopColor: 'grey',
+            borderBottomWidth: 1,
+            borderBottomColor: 'grey'
+          }}
+          onChangeText={(text) => this.onChanged(text)}
+          value={this.num}
+          maxLength={3}
+        />
+        <DatePicker
+          style={{width: 200}}
+          showIcon={false}
+          date={this.state.eta}
+          selected = { this.state.eta }
+          mode="datetime"
+          placeholder="select date"
+          is24Hour= {true}
+          format="HH:mm"
+          confirmBtnText="Confirm"
+          cancelBtnText="Cancel"
+          onDateChange={this.updateText.bind(this)}
+        />
+        {/* <Text>Latitude: {this.state.MarkerLatLong.latitude}</Text>
+        <Text>Longitude: {this.state.MarkerLatLong.longitude}</Text> */}
+        <Button
+          title="Let's Sleep!"
+          onPress={() => this.props.navigation.navigate('Countdown')}
+        />
         <MapView
           ref={map => this.map = map}
           style={styles.map}
@@ -50,23 +105,7 @@ export default class HomeScreen extends React.Component {
             onDragEnd={(e) => this.updateMarker(e)}
           />
         </MapView>
-        <DatePicker
-        style={{width: 200}}
-        date={this.eta}
-        mode="datetime"
-        placeholder="select date"
-        is24Hour= {true}
-        format="HH:mm"
-        confirmBtnText="Confirm"
-        cancelBtnText="Cancel"
-        onDateChange={(date) => {this.eta = new Date(date)}}
-      />
-        {/* <Text>Latitude: {this.state.MarkerLatLong.latitude}</Text>
-        <Text>Longitude: {this.state.MarkerLatLong.longitude}</Text> */}
-        <Button
-          title="Go to Countdown"
-          onPress={() => this.props.navigation.navigate('Countdown')}
-        />
+        
         {/* <Button
           title="Go to Alarm"
           onPress={() => this.props.navigation.navigate('Alarm')}
@@ -75,15 +114,6 @@ export default class HomeScreen extends React.Component {
           title="Go to TimeFinder (Debug page)"
           onPress={() => this.props.navigation.navigate('TimeFinder')}
         /> */}
-        <Text>
-          How much time do you need to get ready?
-        </Text>
-        <TextInput
-          keyboardType='numeric'
-          onChangeText={(text) => this.onChanged(text)}
-          value={this.num}
-          maxLength={3}
-        />
       </View>
     );
   }
@@ -104,15 +134,16 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     backgroundColor: '#fff',
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'space-around',
   },
   timeHeader: {
     fontSize: 20
   },
   map: {
-    height: 300,
+    height: 510,
     width: 500,
     justifyContent: 'flex-end',
     alignItems: 'center',
   },
+  
 });
