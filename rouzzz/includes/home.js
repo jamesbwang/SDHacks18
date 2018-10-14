@@ -29,12 +29,27 @@ export default class HomeScreen extends React.Component {
       longitude: this.currLong
     },
   };
-  eta = "12:00"
   updateMarker = function(e) {
     this.setState({MarkerLatLong: e.nativeEvent.coordinate});
     this.map.animateToCoordinate(e.nativeEvent.coordinate);
   }
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      eta: "12:00",
+    }
+  }
+
+  updateText(date) {
+    this.setState({
+      eta: date,
+    });
+    console.log(this.state.eta);
+  }
+
   render() {
+    
     return (
       <View style={styles.container}>
       <Text style={{font: 40}}>
@@ -57,17 +72,18 @@ export default class HomeScreen extends React.Component {
           maxLength={3}
         />
         <DatePicker
-        style={{width: 300}}
-        showIcon={false}
-        mode="datetime"
-        placeholder="When do you have to be there?"
-        is24Hour= {true}
-        format="HH:mm"
-        confirmBtnText="Confirm"
-        cancelBtnText="Cancel"
-        onDateChange={(date) => {this.eta = new Date(date);
-        console.log(date.toString())}}
-      />
+          style={{width: 200}}
+          showIcon={false}
+          date={this.state.eta}
+          selected = { this.state.eta }
+          mode="datetime"
+          placeholder="select date"
+          is24Hour= {true}
+          format="HH:mm"
+          confirmBtnText="Confirm"
+          cancelBtnText="Cancel"
+          onDateChange={this.updateText.bind(this)}
+        />
         {/* <Text>Latitude: {this.state.MarkerLatLong.latitude}</Text>
         <Text>Longitude: {this.state.MarkerLatLong.longitude}</Text> */}
         <Button
