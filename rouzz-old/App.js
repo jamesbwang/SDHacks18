@@ -88,7 +88,6 @@ const styles = StyleSheet.create({
   },
   timeHeader: {
     fontSize: 20
-
   }
 });
 
