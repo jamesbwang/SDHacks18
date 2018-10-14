@@ -29,6 +29,21 @@ export default class AlarmScreen extends React.Component {
           title="Dismiss"
           onPress={() => this.props.navigation.navigate('Home')}
         />
+        <View style={styles.button_layout}>
+          <Button
+            title="Dismiss"
+            onPress={() => this.props.navigation.navigate('Home')}
+          />
+          <Button
+            title="Snooze"
+            onPress={() => {
+              this.volume = 0;
+              this.props.navigation.goBack(null, {
+                ringtime: 300,
+              });
+            }}
+          />
+        </View>
         <Button
           title="Snooze"
           onPress={() => {

@@ -1,0 +1,47 @@
+Arguments: 
+  C:\Program Files\nodejs\node.exe C:\Program Files (x86)\Yarn\bin\yarn.js add react-native-elements
+
+PATH: 
+  C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\ProgramData\Oracle\Java\javapath;C:\Program Files (x86)\Intel\iCLS Client\;C:\Program Files\Intel\iCLS Client\;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\IPT;C:\Program Files\Intel\Intel(R) Management Engine Components\IPT;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\Program Files\Git\cmd;C:\Program Files\PuTTY\;C:\WINDOWS\System32\OpenSSH\;C:\Program Files\nodejs\;C:\Program Files (x86)\Yarn\bin\;C:\Users\WJang\Anaconda3;C:\Users\WJang\Anaconda3\Library\mingw-w64\bin;C:\Users\WJang\Anaconda3\Library\usr\bin;C:\Users\WJang\Anaconda3\Library\bin;C:\Users\WJang\Anaconda3\Scripts;C:\Ruby25-x64\bin;C:\Program Files\Java\jdk1.8.0_151\bin;C:\Users\WJang\AppData\Local\Microsoft\WindowsApps;C:\Users\WJang\stanford-corenlp-full-2018-02-27\stanford-corenlp-3.9.1-models.jar;C:\Users\WJang\stanford-corenlp-full-2018-02-27\stanford-corenlp-3.9.1.jar;C:\Users\WJang\sqlite-tools-win32-x86-3250000;C:\\Users\\WJang\\AppData\\Local\\Programs\\Python\\Python37-32;C:\Users\WJang\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\WJang\AppData\Roaming\npm;C:\Users\WJang\AppData\Local\Yarn\bin
+
+Yarn version: 
+  1.10.1
+
+Node version: 
+  8.12.0
+
+Platform: 
+  win32 x64
+
+Trace: 
+  Error: EPERM: operation not permitted, unlink 'C:\GitHub\frontendy\SDHacks18\rouzzz\node_modules\.staging\node-pre-gyp-6d057961'
+
+npm manifest: 
+  {
+    "name": "empty-project-template",
+    "main": "node_modules/expo/AppEntry.js",
+    "private": true,
+    "scripts": {
+      "start": "expo start",
+      "android": "expo start --android",
+      "ios": "expo start --ios",
+      "eject": "expo eject"
+    },
+    "dependencies": {
+      "eslint": "^5.7.0",
+      "expo": "^30.0.1",
+      "expo-cli": "^2.2.0",
+      "react": "16.3.1",
+      "react-native": "https://github.com/expo/react-native/archive/sdk-30.0.0.tar.gz",
+      "react-native-datepicker": "^1.7.2",
+      "react-native-maps": "^0.22.0",
+      "react-navigation": "^2.18.0",
+      "yarn": "^1.10.1"
+    }
+  }
+
+yarn manifest: 
+  No manifest
+
+Lockfile: 
+  No lockfile
