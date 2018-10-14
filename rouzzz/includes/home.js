@@ -24,7 +24,6 @@ export default class HomeScreen extends React.Component {
   componentWillMount() {
     navigator.geolocation.getCurrentPosition((pos) => this.setCoords(pos));
   }
-
   setCoords = (pos) => {
     this.setState({
     region: { // for mapview
@@ -33,7 +32,7 @@ export default class HomeScreen extends React.Component {
       latitudeDelta: 0.030,
       longitudeDelta: 0.0242,
     },
-    num: '0', // time to get ready
+    num: '', // time to get ready
     destCoords: {  // for marker
         latitude: pos.coords.latitude,
         longitude: pos.coords.longitude
@@ -45,10 +44,12 @@ export default class HomeScreen extends React.Component {
     isLoading: false
     });
   }  
-
   updateMarker = function(e) {
     this.setState({destCoords: e.nativeEvent.coordinate});
     this.map.animateToCoordinate(e.nativeEvent.coordinate);
+  }
+  onChanged(text) {
+    this.setState({num: +text});
   }
 
   render() {
@@ -74,34 +75,29 @@ export default class HomeScreen extends React.Component {
             onDragEnd={(e) => this.updateMarker(e)}
           />
         </MapView>
-        <Text>Latitude: {this.state.destCoords.latitude}</Text>
-        <Text>Longitude: {this.state.destCoords.longitude}</Text>
         <Button
           title="Go to Countdown"
           onPress={() => this.props.navigation.navigate('Countdown', this.state)}
         />
-        <Button
+        {/* <Button
           title="Go to Alarm"
           onPress={() => this.props.navigation.navigate('Alarm')}
         />
         <Button
           title="Go to TimeFinder (Debug page)"
           onPress={() => this.props.navigation.navigate('TimeFinder')}
-        />
+        /> */}
         <Text>
           How much time do you need to get ready?
         </Text>
         <TextInput
           keyboardType='numeric'
           onChangeText={(text) => this.onChanged(text)}
-          value={this.state.num}
+          value={'0' + this.state.num}
           maxLength={3}
         />
       </View>
     );
-  }
-  onChanged(text) {
-    this.setState({num: +text});
   }
 }
 

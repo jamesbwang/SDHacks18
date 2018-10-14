@@ -20,7 +20,8 @@ import {
   StyleSheet,
   Text,
   TextInput,
-  View
+  View,
+  ActivityIndicator
 } from 'react-native';
 import {
   createStackNavigator,
