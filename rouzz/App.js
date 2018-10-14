@@ -1,7 +1,5 @@
 import React, {Component} from 'react';
 import { StyleSheet, Text, View, Button, Picker, TextInput} from 'react-native';
-import Moment from 'react-moment';
-import { Ionicons } from '@expo/vector-icons';
 import { createStackNavigator, createBottomTabNavigator } from 'react-navigation';
 import MapView, { MapViewAnimated } from 'react-native-maps';
 import {Marker} from 'react-native-maps';
@@ -10,17 +8,17 @@ import {Marker} from 'react-native-maps';
 export class HomeScreen extends React.Component {
   // currLat = this.state.position.latitude;    // once we integrate, use this.
   // currLng = this.state.position.longitude;
-  currLat = 32.7157;
+  currLat = 32.7157;  // temp until api integration
   currLng = -117.1611;
   state = {
     readyTime: 0,
-    region: {
+    region: { // for mapview
       latitude: this.currLat,
       longitude: this.currLng,
       latitudeDelta: 0.030,
       longitudeDelta: 0.0242,
     },
-    MarkerLatLng: {
+    MarkerLatLng: { // for map marker
       latitude: this.currLat,
       longitude: this.currLng
     },
