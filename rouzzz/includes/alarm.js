@@ -19,10 +19,10 @@ export default class AlarmScreen extends React.Component {
           title="Go to Countdown"
           onPress={() => this.props.navigation.navigate('Countdown')}
         />
-        <Button
+        {/* <Button
           title="Go to TimeFinder (Debug page)"
           onPress={() => this.props.navigation.navigate('TimeFinder')}
-        />
+        /> */}
         <Video
 	        source={{ uri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4' }}
           shouldPlay

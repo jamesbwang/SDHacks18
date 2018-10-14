@@ -8,6 +8,7 @@ import {
 } from 'react-native';
 import MapView from 'react-native-maps';
 import { Marker } from 'react-native-maps';
+import DatePicker from 'react-native-datepicker'
 
 export default class HomeScreen extends React.Component {
   num = 0;
@@ -28,6 +29,7 @@ export default class HomeScreen extends React.Component {
       longitude: this.currLong
     },
   };
+  eta = "12:00"
   updateMarker = function(e) {
     this.setState({MarkerLatLong: e.nativeEvent.coordinate});
     this.map.animateToCoordinate(e.nativeEvent.coordinate);
@@ -48,20 +50,31 @@ export default class HomeScreen extends React.Component {
             onDragEnd={(e) => this.updateMarker(e)}
           />
         </MapView>
-        <Text>Latitude: {this.state.MarkerLatLong.latitude}</Text>
-        <Text>Longitude: {this.state.MarkerLatLong.longitude}</Text>
+        <DatePicker
+        style={{width: 200}}
+        date={this.eta}
+        mode="datetime"
+        placeholder="select date"
+        is24Hour= {true}
+        format="HH:mm"
+        confirmBtnText="Confirm"
+        cancelBtnText="Cancel"
+        onDateChange={(date) => {this.eta = new Date(date)}}
+      />
+        {/* <Text>Latitude: {this.state.MarkerLatLong.latitude}</Text>
+        <Text>Longitude: {this.state.MarkerLatLong.longitude}</Text> */}
         <Button
           title="Go to Countdown"
           onPress={() => this.props.navigation.navigate('Countdown')}
         />
-        <Button
+        {/* <Button
           title="Go to Alarm"
           onPress={() => this.props.navigation.navigate('Alarm')}
         />
         <Button
           title="Go to TimeFinder (Debug page)"
           onPress={() => this.props.navigation.navigate('TimeFinder')}
-        />
+        /> */}
         <Text>
           How much time do you need to get ready?
         </Text>
