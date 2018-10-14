@@ -30,6 +30,11 @@ import MapView, {
   MapViewAnimated
 } from 'react-native-maps';
 import {Marker} from 'react-native-maps';
+//import Audio from 'expo-cli';
+
+//var SoundPlayer = require('react-native-sound');
+
+import Video from 'react-native-video';
 
 export class HomeScreen extends React.Component {
   num = 0;
@@ -102,6 +107,7 @@ export class HomeScreen extends React.Component {
 }
 
 export class AlarmScreen extends React.Component {
+  
   render() {
     return (
       <View style={styles.container}>
@@ -116,6 +122,13 @@ export class AlarmScreen extends React.Component {
         <Button
           title="Go to TimeFinder (Debug page)"
           onPress={() => this.props.navigation.navigate('TimeFinder')}
+        />
+        <Button
+          title="PLAY TEST AUDIO"
+          onPress={() => {
+              //new SoundPlayer('alarm.mp3', SoundPlayer.MAIN_BUNDLE).play();
+            }
+          }
         />
       </View>
     );
