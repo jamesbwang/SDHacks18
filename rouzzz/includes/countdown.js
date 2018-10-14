@@ -72,39 +72,29 @@ export default class CountdownScreen extends React.Component {
     this.offset = navigation.getParam('offset');
     this.timestamp = navigation.getParam('target');
 
+    console.log(this);
     date = new Date(new Date(this.timestamp).getTime() - this.offset*1000);
     //timeToGetReady = 1000000;
     dateString =
       date.getHours() + ":"
       + (date.getMinutes() >= 10 ? date.getMinutes().toString() : ('0' + date.getMinutes()).toString());
-
-
-    arrivalTime = new Date();
+    arrivalTime = navigation.getParam('target')
+  
+   wakeuptime = new Date(new Date(this.arrivalTime).getTime() - this.offset*1000  - this.state.timeToGetReady*1000);
+   console.log(wakeuptime.getHours());
+   wakeupstring = 
+   wakeuptime.getHours() + ":"
+   + (wakeuptime.getMinutes() >= 10 ? wakeuptime.getMinutes().toString() : ('0' + wakeuptime.getMinutes()).toString());
     console.log("Destination Latitude: " + this.state.dest_latitude);
     console.log("Offset: " + this.offset);
     //console.log(this.timestamp);
     return (
       <View style={styles.container}>
-        <Text style={{fontSize : 40}}> {"Wake up at: "}</Text>
-        <Text style={{fontSize : 59}}> {dateString}</Text>
+        <Text style={{fontSize : 40}}> {"Wake up at: "}</Text>        
+        <Text style={{fontSize : 59}}> {wakeupstring}</Text>
         <Text>
           {"You will arrive by " + (arrivalTime.getHours() + ":" + (arrivalTime.getMinutes() >= 10 ? arrivalTime.getMinutes().toString() : ('0' + arrivalTime.getMinutes()).toString()))}
         </Text>
-        {/* <Button
-          title="Go to Home"
-          onPress={() => this.props.navigation.navigate('Home')}
-        />
-        <Button
-          title="Go to Alarm"
-          onPress={() => this.props.navigation.navigate('Alarm')}
-        />
-        <Button
-          title="Test_Location"
-          onPress={this.findRoutes.bind(this)}
-        /> */}
-        {/* <Text>
-          {this.state.timeToGetReady} seconds to arrive.
-        </Text> */}
       </View>
     );
   }
@@ -113,7 +103,7 @@ export default class CountdownScreen extends React.Component {
     setInterval(() => {
         this.setState(() => {
             this.findRoutes();
-            if(new Date(this.timestamp).getTime() - this.offset*1000 <= new Date() - this.state.timeToGetReady*1000){
+            if(new Date(this.timestamp).getTime() >= this.state.wakeuptime) {
               this.props.navigation.navigate('Alarm')
             }
             return { unseen: "does not display" }
