@@ -1,46 +1,47 @@
 import React, {Component} from 'react';
-import { StyleSheet, Text, View, Button, Picker} from 'react-native';
+import { StyleSheet, Text, View, Button, Picker, TextInput} from 'react-native';
 import Moment from 'react-moment';
 import { Ionicons } from '@expo/vector-icons';
 import { createStackNavigator, createBottomTabNavigator } from 'react-navigation';
-import MapView from 'react-native-maps';
+import MapView, { MapViewAnimated } from 'react-native-maps';
+import {Marker} from 'react-native-maps';
 
 
 export class HomeScreen extends React.Component {
+  // currLat = this.state.position.latitude;    // once we integrate, use this.
+  // currLng = this.state.position.longitude;
+  currLat = 32.7157;
+  currLng = -117.1611;
+  state = {
+    readyTime: 0,
+    region: {
+      latitude: this.currLat,
+      longitude: this.currLng,
+      latitudeDelta: 0.030,
+      longitudeDelta: 0.0242,
+    },
+    MarkerLatLng: {
+      latitude: this.currLat,
+      longitude: this.currLng
+    },
+  };
   render() {
-    state = {user: 0}
     return (
       <View style={styles.container}>
         <Text style={{fontSize: 40}}>Rouzzz</Text>
         <MapView
+          ref={map => this.map = map}
           style={styles.map}
-          region={{
-            latitude: 37.78825,
-            longitude: -122.4324,
-            latitudeDelta: 0.015,
-            longitudeDelta: 0.0121,
-          }}
+          initialRegion={this.state.region}
+          onMarkerDragEnd={(e)=>this.map.animateToCoordinate(e.nativeEvent.coordinate)}
         >
+          <Marker draggable
+            coordinate={this.state.MarkerLatLng}
+            onDragEnd={(e) => this.setState({MarkerLatLng: e.nativeEvent.coordinate})}
+          />
         </MapView>
-        <Text>It takes me:</Text>
-        <Picker style={styles.picker} 
-          selectedValue={state.user} 
-          onValueChange = {(itemValue, itemIndex) => state.user=itemValue}>
-          <Picker.Item label="0" value="0"/>
-          <Picker.Item label="5" value="5" />
-          <Picker.Item label="10" value="10" />
-          <Picker.Item label="15" value="15" />
-          <Picker.Item label="20" value="20" />
-          <Picker.Item label="25" value="25" />
-          <Picker.Item label="30" value="30" />
-          <Picker.Item label="40" value="40" />
-          <Picker.Item label="50" value="50" />
-          <Picker.Item label="60" value="60" />
-          <Picker.Item label="75" value="75" />
-          <Picker.Item label="100" value="100" />
-        </Picker>
-        <Text>minutes to get ready.</Text>
-        <Text>{state.user}</Text>
+        <Text>Latitude: {this.state.MarkerLatLng.latitude}</Text>
+        <Text>Longitude: {this.state.MarkerLatLng.longitude}</Text>
         <Button
           title="Go to Countdown"
           onPress={() => this.props.navigation.navigate('Countdown')}
@@ -109,8 +110,8 @@ const styles = StyleSheet.create({
     fontSize : 20
   },
   map: {
-    height: 200,
-    width: 400,
+    height: 300,
+    width: 500,
     justifyContent: 'flex-end',
     alignItems: 'center',
   },
