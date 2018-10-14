@@ -23,7 +23,7 @@ export default class CountdownScreen extends React.Component {
        <Text>
          {"You will arrive by " + (this.arrivalTime.getHours() + ":" + (this.arrivalTime.getMinutes() >= 10 ? this.arrivalTime.getMinutes().toString() : ('0' + this.arrivalTime.getMinutes()).toString()))}
        </Text>
-       <Button
+       {/* <Button
          title="Go to Home"
          onPress={() => this.props.navigation.navigate('Home')}
        />
@@ -34,7 +34,7 @@ export default class CountdownScreen extends React.Component {
        <Button
          title="Go to TimeFinder (Debug page)"
          onPress={() => this.props.navigation.navigate('TimeFinder')}
-       />
+       /> */}
      </View>
    );
  }
