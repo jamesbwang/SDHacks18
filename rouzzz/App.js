@@ -156,7 +156,7 @@ export class CountdownScreen extends React.Component {
             }
             return { unseen: "does not display" }
         });
-    }, 1000);
+    }, 10000);
 }
 
 
